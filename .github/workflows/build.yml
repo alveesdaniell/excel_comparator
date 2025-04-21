@@ -1,0 +1,28 @@
+name: Build Windows Executable
+on: [push]  # Executa toda vez que você fizer um git push
+
+jobs:
+  build:
+    runs-on: windows-latest  # Usa um servidor Windows da GitHub
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Baixa seu código do repositório
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # Versão do Python (ajuste se necessário)
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build EXE
+        run: pyinstaller --onefile excel_comparator/cli.py --name ExcelComparator
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ExcelComparator-Windows
+          path: dist/ExcelComparator.exe  # Pasta onde o .exe é gerado
