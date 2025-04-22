@@ -7,7 +7,7 @@ certifi==2025.1.31
 charset-normalizer==3.4.1
 click==8.1.8
 et_xmlfile==2.0.0
--e git+ssh://git@github.com/alveesdaniell/excel_comparator.git@c6e0ecadd15001cea6cad99a0f6427b7cfd18b41#egg=excel_comparator
+-e git+https://github.com/alveesdaniell/excel_comparator.git@c6e0ecadd15001cea6cad99a0f6427b7cfd18b41#egg=excel_comparator
 gitdb==4.0.12
 GitPython==3.1.44
 idna==3.10
