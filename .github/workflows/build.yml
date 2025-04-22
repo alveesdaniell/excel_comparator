@@ -1,31 +1,33 @@
 name: Build Windows Executable
 
-on: [push]  # Roda o workflow a cada push
+on:
+  push:  # Roda o workflow a cada push
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # Usa um servidor Windows da GitHub
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Baixa seu código do repositório
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'  # Use a versão necessária
+          python-version: '3.11'  # Versão do Python (ajuste conforme necessário)
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pyinstaller
+          pip install -r requirements.txt  # Instala as dependências do requirements.txt
+          pip install pyinstaller==4.10  # Instala uma versão estável do PyInstaller
 
       - name: Build EXE with PyInstaller
-        run: pyinstaller --onefile --add-data "excel_comparator\\app.py;." excel_comparator/cli.py --name ExcelComparator
+        run: |
+          pyinstaller --onefile --distpath=dist/Windows --add-data "excel_comparator\\app.py;." --hidden-import=streamlit --hidden-import=importlib_metadata excel_comparator/cli.py --name ExcelComparator
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ExcelComparator-Windows
-          path: dist/ExcelComparator.exe
+          name: ExcelComparator-Windows  # Nome do artefato
+          path: dist/Windows/ExcelComparator.exe  # Caminho do arquivo .exe gerado
