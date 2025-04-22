@@ -1,13 +1,22 @@
-import subprocess
+import os
 import sys
+import subprocess
 
 def main():
-    try:
-        subprocess.check_call([sys.executable, "-m", "streamlit", "run", "app.py"])
-    except Exception as e:
-        print(f"Erro ao executar: {e}")
-        print("Instale as dependências com:")
-        print("python -m pip install streamlit pandas openpyxl xlsxwriter")
+    if hasattr(sys, "_MEIPASS"):
+        # PyInstaller: caminho temporário onde os arquivos são extraídos
+        base_path = sys._MEIPASS
+    else:
+        # Execução normal
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    app_path = os.path.join(base_path, "app.py")
+
+    # Garantir que o argumento da porta seja passado corretamente
+    sys.argv = ["streamlit", "run", app_path, "--server.port=8501"]
+
+    # Usando subprocess para chamar o streamlit e passar os parâmetros corretamente
+    subprocess.run(sys.argv)
 
 if __name__ == "__main__":
     main()
