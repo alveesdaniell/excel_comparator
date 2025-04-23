@@ -72,17 +72,6 @@ streamlit run app.py
 
 ---
 
-## 📁 Estrutura do Projeto
-
-```
-excel_comparator/
-├── app.py              # Código principal do Streamlit
-├── requirements.txt    # Dependências
-└── README.md           # Documentação do projeto
-```
-
----
-
 ## 📌 Tecnologias utilizadas
 
 - [Streamlit](https://streamlit.io/)
